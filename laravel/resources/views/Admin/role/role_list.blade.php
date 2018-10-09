@@ -90,13 +90,13 @@
     });
 
 //批量删除
-    $('[name=checkall]').on('click',function(){
-        if(this.checked) {
-            $("input[name='sub']").attr('checked',true);
-        }else {
-            $("input[name='sub']").attr('checked',false);
-        }
-    });
+        $('[name=checkall]').on('click',function(){
+            if(this.checked) {
+                $("input[name='sub']").attr('checked',true);
+            }else {
+                $("input[name='sub']").attr('checked',false);
+            }
+        });
 
     $('[name=delete]').click(function(){
         var id_all='';
@@ -105,12 +105,26 @@
                 id_all+=$(this).val()+',';
             }
         });
+        $.ajax({
+            url:'role_delete',
+            data:'id='+id_all,
+            dataType:'json',
+            type:'post',
+            async:false,
+            success:function(json_info){
+                if(json_info.status == 1000){
+                    layer.msg(json_info.msg,{time:2000},function(){
+                        history.go(0)
+                    })
+                }else{
+                    alert(json_info.msg);
+                }
+            }
+        })
         if(id_all==''){
-            alert('请选择要删除的角色')
+            alert('请选择要删除的数据')
         }
     });
-
-
 
     /*浏览-删除*/
     function view_del(obj,id){

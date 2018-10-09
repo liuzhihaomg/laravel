@@ -62,7 +62,7 @@ class AdministratorController extends CommonController
         $user_info=$this->sessioninfo();
         $new_node=$this->judge_admin($user_info['admin_id']);
         //查询用户数据
-        $crm_admin_data=DB::table('crm_admin')->join()->get()->toArray();
+        $crm_admin_data=DB::table('crm_admin')->get()->toArray();
         $crm_admin_data=json_decode(json_encode($crm_admin_data),true);
         //查询条数
         $crm_admin_count=DB::table('crm_admin')->count();

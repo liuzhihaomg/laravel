@@ -61,12 +61,12 @@ class RoleController extends CommonController
     public function role_list(){
         $user_info=$this->sessioninfo();
         $new_node=$this->judge_admin($user_info['admin_id']);
-        $crm_amdin_role_data=DB::table('crm_admin_role')->where(['status'=>1])->get()->toArray();
+        $crm_amdin_role_data=DB::table('crm_admin_role')->get()->toArray();
         $crm_amdin_role_data=json_decode(json_encode($crm_amdin_role_data),true);
         foreach($crm_amdin_role_data as $k=>$v){
             $crm_amdin_role_data[$k]['ctime']=date('Y-m-d H:i:s',$v['ctime']);
         }
-        $crm_amdin_role_count=DB::table('crm_admin_role')->where(['status'=>1])->count();
+        $crm_amdin_role_count=DB::table('crm_admin_role')->count();
         return view('Admin.role.role_list',['new_node'=>$new_node,'crm_amdin_role_data'=>$crm_amdin_role_data,'crm_amdin_role_count'=>$crm_amdin_role_count]);
     }
 
@@ -85,6 +85,22 @@ class RoleController extends CommonController
         }else{
             DB::rollBack();
             return $this->fail();
+        }
+    }
+    /****
+     * 角色批量删除
+     */
+    public function role_delete(){
+        $input=Input::all();
+        $id=$input['id'];
+        DB::beginTransaction();
+        $id=rtrim($id,',');
+        $arr=explode(',',$id);
+        $res=DB::table('crm_admin_role')->whereIn('id',[1,2])->delete();
+        if($res){
+            return $this->success('批量删除成功');
+        }else{
+            return $this->fail('批量删除失败');
         }
     }
 }
