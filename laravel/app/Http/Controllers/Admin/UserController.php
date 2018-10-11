@@ -50,4 +50,15 @@ class UserController extends CommonController
             echo json_encode(['statsu'=>1000,'msg'=>'添加失败']);
         }
     }
+
+    public function user_list(){
+        $user_info=$this->sessioninfo();
+        $new_node=$this->judge_admin($user_info['admin_id']);
+        //查询用户数据
+        $user_data=DB::table('crm_user')->get()->toArray();
+        $user_data=json_decode(json_encode($user_data),true);
+        //查询条数
+        $user_count=DB::table('crm_user')->count();
+        return view('Admin.user.user_list',['new_node'=>$new_node,'user_data'=>$user_data,'user_count'=>$user_count]);
+    }
 }
