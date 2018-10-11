@@ -49,7 +49,7 @@ Route::any('user_add','Admin\UserController@user_add');
 Route::any('user_address','Admin\UserController@user_address');
 //用户执行添加
 Route::any('user_add_do','Admin\UserController@user_add_do');
-//角色删除
+//角色批量删除
 Route::any('role_delete','Admin\RoleController@role_delete');
 //客户展示
 Route::any('user_list','Admin\UserController@user_list');
