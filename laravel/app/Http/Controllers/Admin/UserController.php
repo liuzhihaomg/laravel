@@ -61,4 +61,8 @@ class UserController extends CommonController
         $user_count=DB::table('crm_user')->count();
         return view('Admin.user.user_list',['new_node'=>$new_node,'user_data'=>$user_data,'user_count'=>$user_count]);
     }
+
+	function a(){
+		echo 111;
+	}
 }
