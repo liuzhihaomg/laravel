@@ -93,13 +93,17 @@ class RoleController extends CommonController
     public function role_delete(){
         $input=Input::all();
         $id=$input['id'];
+        //开启事物
         DB::beginTransaction();
         $id=rtrim($id,',');
         $arr=explode(',',$id);
-        $res=DB::table('crm_admin_role')->whereIn('id',[1,2])->delete();
-        if($res){
+        $res=DB::table('crm_admin_role')->whereIn('id',$arr)->delete();
+        $node_res=DB::table('crm_role_node')->whereIn('role_id',$arr)->delete();
+        if($res && $node_res){
+            DB::commit();
             return $this->success('批量删除成功');
         }else{
+            DB::rollBack();
             return $this->fail('批量删除失败');
         }
     }
