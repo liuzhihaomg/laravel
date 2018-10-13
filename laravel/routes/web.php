@@ -53,5 +53,15 @@ Route::any('user_add_do','Admin\UserController@user_add_do');
 Route::any('role_delete','Admin\RoleController@role_delete');
 //客户展示
 Route::any('user_list','Admin\UserController@user_list');
+//订单
+Route::any('order_add','Admin\OrderController@order');
+//订单添加
+Route::any('order_add_do','Admin\OrderController@order_add_do');
+//订单展示
+Route::any('order_list','Admin\OrderController@order_list');
+//删除订单
+Route::any('order_delete','Admin\OrderController@order_delete');
+//修改订单
+Route::any('order_update','Admin\OrderController@order_update');
 
 
