@@ -19,9 +19,4 @@ class AdminController extends CommonController
         $new_node=$this->judge_admin($user_info['admin_id']);
         return view('Admin.admin.admin',['new_node'=>$new_node]);
     }
-	
-	//测试
-	public function adminlogin(){
-		echo   2222222;
-	}
 }
